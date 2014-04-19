@@ -1,14 +1,169 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-		<title>About Me</title>
-	</head>
-	<body>
-		<img src="http://s3.amazonaws.com/codecademy-blog/assets/46838757.png"/>
-		<p>We're Codecademy!</p><br/><br/>
-		<div>
+  <head>
+    <meta charset="utf-8">
+    <title>BlackJack!</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <script>
+
+function Hand(){
+	var the_hand=[];
+	
+	the_hand.push(deal());
+	the_hand.push(deal());
+	
+	this.score=function(){
+		var aces=new Array
+		
+		hand_value=0;
+		for(var i in the_hand){
+			temp=the_hand[i].getValue();
 			
-		</div>
+			if(temp===11) {aces.push(true);}
+			hand_value+=temp
+		}
+		while(hand_value>21 && aces.length>0){
+			aces.pop();
+			hand_value-=10;
+		}
+		return hand_value;
+	};
+	
+	this.getHand=function(){
+		return (the_hand);
+	};
+	
+	this.hitHand=function(){
+		the_hand.push(deal());
+	}
+	
+	this.printHand=function(){
+		
+		for(var i in the_hand){
+				num=the_hand[i].getNumber();
+				
+				switch(true){
+					case (num===1):
+					console.log("Ace");
+					break;
+					case (num>=2 && num<=10):
+					console.log(num);
+					break;
+					case (num===11):
+					console.log("Jack");
+					break;
+					case (num===12):
+					console.log("Queen");
+					break;
+					case (num===13):
+					console.log("King");
+					break;
+					default:
+					alert("Whats going on?");
+				}
+		
+			switch (the_hand[i].getSuit()){
+				case 1:
+				console.log ("Spades");
+				break;
+				case 2:
+				console.log ("Hearts");
+				break;
+				case 3:
+				console.log ("Diamonds");
+				break;
+				case 4:
+				console.log ("Clubs");
+				break;
+				}
+	
+		}
+	}
+	
+}
+	function Card(suit,number) {
+	var suit=suit;
+	var number=number;
+			
+		this.getSuit=function(){
+			return suit;
+		};
+		
+		this.getNumber=function(){
+			return number;
+			
+		};
+
+		this.getValue=function(){
+			
+			if (number>10)  {
+				return (10);
+				
+			}
+			else if (number===1){
+			  return 11;
+			}
+			else return number;
+		}
+		
+}
+
+var deal=function(){
+	var random_suit=Math.floor((Math.random()*4)+1);
+	var random_number=Math.floor((Math.random()*13)+1);
+	return new Card(random_suit,random_number);
+}
+
+var dealerPlay=function(){
+	dealerHand=new Hand();
+	while(dealerHand.score()<17){
+		dealerHand.hitHand();
+	}
+console.log("The dealer hand is: ")
+dealerHand.printHand(); 
+console.log("And score is : ")
+console.log(dealerHand.score());
+return (dealerHand);
+}
+
+var playerPlay=function(){
+	playerHand=new Hand();
+	var answer=true;
+
+playerHand.printHand();	
+	while (answer===true){
+		answer=confirm(playerHand.score());
+		if(answer===true){
+			playerHand.hitHand();
+		}
+	}
+return (playerHand);
+
+}
+
+
+var declareWinner=function(dealerHand,playerHand){
+	dealerHand.score();
+	playerHand.score();
+	console.log("In Comparison Function");
+}
+
+var playBlackjack=function(){
+dealerHand=dealerPlay();
+playerHand=playerPlay();
+
+declareWinner(dealerHand,playerHand);
+
+}
+
+
+
+</script>
+
+	    <h2>Be Black, Jack</h2>
+	
 	</body>
-</html>
+	</html>
