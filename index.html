@@ -133,7 +133,7 @@ var playerPlay=function(){
 
 	
 	while (answer===true){
-		answer=confirm(playerHand.score());
+		answer=confirm("Your current hand is " + playerHand.score().to_s);
 		if(answer===true){
 			playerHand.hitHand();
 		}
