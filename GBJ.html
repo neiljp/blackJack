@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link type="text/css" rel="stylesheet" href="stylesheet.css" />
+    <meta charset="utf-8">
+    <title>BlackJack!</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <script>
+
+function Hand(){
+	var the_hand=[];
+	
+	the_hand.push(deal());
+	the_hand.push(deal());
+	
+	this.score=function(){
+		var aces=new Array
+		
+		hand_value=0;
+		for(var i in the_hand){
+			temp=the_hand[i].getValue();
+			
+			if(temp===11) {aces.push(true);}
+			hand_value+=temp
+		}
+		while(hand_value>21 && aces.length>0){
+			aces.pop();
+			hand_value-=10;
+		}
+		return hand_value;
+	};
+	
+	this.getHand=function(){
+		return (the_hand);
+	};
+	
+	this.hitHand=function(){
+		the_hand.push(deal());
+	}
+	
+	this.printHand=function(){
+		
+		for(var i in the_hand){
+				num=the_hand[i].getNumber();
+				
+				switch(true){
+					case (num===1):
+					console.log("Ace");
+					break;
+					case (num>=2 && num<=10):
+					console.log(num);
+					break;
+					case (num===11):
+					console.log("Jack");
+					break;
+					case (num===12):
+					console.log("Queen");
+					break;
+					case (num===13):
+					console.log("King");
+					break;
+					default:
+					alert("Whats going on?");
+				}
+		
+			switch (the_hand[i].getSuit()){
+				case 1:
+				console.log ("Spades");
+				break;
+				case 2:
+				console.log ("Hearts");
+				break;
+				case 3:
+				console.log ("Diamonds");
+				break;
+				case 4:
+				console.log ("Clubs");
+				break;
+				}
+	
+		}
+	}
+	
+}
+	function Card(suit,number) {
+	var suit=suit;
+	var number=number;
+			
+		this.getSuit=function(){
+			return suit;
+		};
+		
+		this.getNumber=function(){
+			return number;
+			
+		};
+
+		this.getValue=function(){
+			
+			if (number>10)  {
+				return (10);
+				
+			}
+			else if (number===1){
+			  return 11;
+			}
+			else return number;
+		}
+		
+}
+
+var deal=function(){
+	var random_suit=Math.floor((Math.random()*4)+1);
+	var random_number=Math.floor((Math.random()*13)+1);
+	return new Card(random_suit,random_number);
+}
+
+var dealerPlay=function(){
+	dealerHand=new Hand();
+	while(dealerHand.score()<17){
+		dealerHand.hitHand();
+	}
+
+
+return (dealerHand);
+}
+
+var playerPlay=function(){
+	playerHand=new Hand();
+	return (playerHand);
+
+}
+
+
+var declareWinner=function(dealerHand,playerHand){
+	
+//First the dealer
+	console.log("The dealer hand is: ")
+	dealerHand.printHand();
+	dealerScore= dealerHand.score();
+	console.log("And score is : "+dealerScore);
+	
+	
+//Now the player
+	console.log("Your hand is: ")
+	playerHand.printHand();
+	playerScore=playerHand.score();
+	console.log("Your score is : "+ playerScore);	
+
+if(playerScore>21){
+	console.log ("You Bust, House Wins :(");
+	return -1;
+	}
+else if (dealerScore>21){
+	console.log ("Dealer Busts, You Win!! :)");
+	return 1;
+	}
+	
+else if (playerScore===dealerScore){
+	console.log("Push - Keep the money you filthy animal!");
+	return 0;
+	}
+	
+	else {
+		playerScore = 21 - playerScore;
+		dealerScore = 21 - dealerScore;
+		var result = (playerScore<dealerScore)? true: false;
+		
+		if(result){
+			console.log("You Win");
+		}
+		else
+		{
+			console.log("You Lose!")
+		}
+	}return;
+}
+
+var playBlackjack=function(){
+	dealerHand=dealerPlay();
+	card_display(dealerHand);
+	playerHand=playerPlay();
+	card_display(playerHand);
+	return;		
+}
+
+var card_display=function(gameHand){
+	
+	for(var i=0;i<gameHand.length;i++){
+		tempSuit=gamHand[i].getSuit();
+		tempNumber=gameHand[i].getNumber();
+		tempCard=tempNumber+tempSuit[0];
+	}
+	return;
+}
+
+
+window.onload=function(){
+	$( ".playButton" ).click(function() {
+		playBlackjack();
+		});
+	
+	$( ".hitButton" ).click(function() {
+		playerHand.hitHand();
+		});
+	
+	$( ".stayButton" ).click(function() {
+		declareWinner(dealerHand,playerHand);
+		});	
+}
+
+
+
+</script>
+
+	    <h2>Be Black, Jacks</h2>	
+	
+		<ul class="messages">
+
+
+	    </ul>
+
+
+<button class="playButton" enabled>Play Now</button>
+<button class="hitButton" enabled>Hit</button>
+<button class="stayButton" enabled>Stay</button>
+
+
+		<div class='contain' id="d1">	<img class='resize_fit_center' src="../blackJack/Cards/AS.svg" >Dealer</div>
+	<div class='contain' id="d2">	<img class='resize_fit_center' src="../blackJack/Cards/AS.svg" >Dealer</div>
+	<div class='contain' id='p1'>	<img class='resize_fit_center' src="../blackJack/Cards/AS.svg" >Player</div>
+<div class='contain' id='p2'>	<img class='resize_fit_center' src="../blackJack/Cards/AS.svg" >Player</div>
+	</body>
+	</html>
