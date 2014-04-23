@@ -133,8 +133,9 @@ var playerPlay=function(){
 
 	
 	while (answer===true){
-		temps=playerHand.score();
-		answer=confirm("Your current hand is " + temp.to_s);
+		temps= "Current hand is: " + playerHand.score() + " Would you like another card?";
+		//console.log(temps);
+		answer=confirm(temps);
 		if(answer===true){
 			playerHand.hitHand();
 		}
@@ -150,7 +151,7 @@ var declareWinner=function(dealerHand,playerHand){
 	console.log("The dealer hand is: ")
 	dealerHand.printHand();
 	dealerScore= dealerHand.score();
-	console.log("And score is : "+dealerScore);
+	console.log("Dealer score is : "+dealerScore);
 	
 	
 //Now the player
@@ -160,16 +161,16 @@ var declareWinner=function(dealerHand,playerHand){
 	console.log("Your score is : "+ playerScore);	
 
 if(playerScore>21){
-	console.log ("You Bust, House Wins :(");
+	console.log ("Result: You Bust, House Wins :(");
 	return -1;
 	}
 else if (dealerScore>21){
-	console.log ("Dealer Busts, You Win!! :)");
+	console.log ("Result: Dealer Busts, You Win!! :)");
 	return 1;
 	}
 	
 else if (playerScore===dealerScore){
-	console.log("Push - Keep the money you filthy animal!");
+	console.log("Result: Push - Keep the money you filthy animal!");
 	return 0;
 	}
 	
@@ -179,11 +180,11 @@ else if (playerScore===dealerScore){
 		var result = (playerScore<dealerScore)? true: false;
 		
 		if(result){
-			console.log("You Win");
+			console.log("Result: You Win");
 		}
 		else
 		{
-			console.log("You Lose!")
+			console.log("Result: You Lose!")
 		}
 	}return;
 }
