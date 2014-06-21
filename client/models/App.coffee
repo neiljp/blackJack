@@ -3,9 +3,9 @@ class window.App extends Backbone.Model
 
   initialize: (pot) ->
     currentBet = prompt("Whats your bet?")
-    @set 'currentBet', currentBet
+    @set 'currentBet', parseInt(currentBet)
 
-    @set 'moneyPot', pot
+    @set 'moneyPot', parseInt(pot)
     @set 'message',''
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
@@ -22,15 +22,15 @@ class window.App extends Backbone.Model
     # console.log @get 'currentBet'
     console.log dealerScore,playerScore
     if playerScore > 21
-      @set 'moneyPot', ((@get 'moneyPot') - (@get 'currentBet'))
+      @set 'moneyPot', (parseInt(@get 'moneyPot') - parseInt(@get 'currentBet'))
       console.log "New Pot is #{@get 'moneyPot'}"
       @set 'message', 'Busted!'
     else if dealerScore > 21
-      @set 'moneyPot', ((@get 'moneyPot') + (@get 'currentBet'))
+      @set 'moneyPot', (parseInt(@get 'moneyPot') + parseInt(@get 'currentBet'))
       console.log "New Pot is #{@get 'moneyPot'}"
       @set 'message', 'Dealer Busts, You Win'
     else if dealerScore > playerScore
-      @set 'moneyPot', ((@get 'moneyPot') - (@get 'currentBet'))
+      @set 'moneyPot', (parseInt(@get 'moneyPot') - parseInt(@get 'currentBet'))
       console.log "New Pot is #{@get 'moneyPot'}"
       @set 'message', 'Dealer Wins Sucka!!'
     else if dealerScore < playerScore

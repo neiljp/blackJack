@@ -42,3 +42,12 @@ body {
 .chip {
   width:100%;
 }
+
+table {
+  width: 300px;
+}
+
+.tdchip {
+  height: 10px;
+  width: 100px;
+}
