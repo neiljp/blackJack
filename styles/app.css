@@ -1,9 +1,26 @@
+
+body {
+  background-image: url('https://betclick.hs.llnwd.net/e1/pict/Casino/06_Backgrounds/_EXPEKT_GAME_BKG_TABLEGAME.jpg');
+  background-size: 100%;
+}
+
+.player-hand-container {
+  margin-left:525px;
+}
+
+.dealer-hand-container {
+  margin-left:525px;
+}
+
+.hit-button {
+  margin-top: 50px;
+  margin-left:525px;
+}
+
 .card {
   float: left;
   border: solid 1px black;
-  /*width: 100px;*/
   border-radius: 5px;
-  /*height: 140px;*/
   margin-right: 20px;
 }
 

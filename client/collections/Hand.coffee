@@ -8,7 +8,6 @@ class window.Hand extends Backbone.Collection
     # window.alert 'Player has hit'
     @add(@deck.pop()).last()
     someScore = do @scores
-    console.log someScore[0]
     if someScore[0] > 21 then @trigger 'gameOver'
 
   stand: ->
