@@ -7,6 +7,7 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     @get('dealerHand').on 'gameOver', @.compareScores, @
+    @get('playerHand').on 'gameOver', @.compareScores, @
 
   compareScores: ->
     console.log 'Game Over'
@@ -14,8 +15,9 @@ class window.App extends Backbone.Model
     playerScore = @get('playerHand').scores()
 
     console.log dealerScore,playerScore
-
-    if dealerScore > 21
+    if playerScore > 21
+      @set 'message', 'Busted!'
+    else if dealerScore > 21
       @set 'message', 'Dealer Busts, You Win'
     else if dealerScore > playerScore
       @set 'message', 'Dealer Wins Sucka!!'
@@ -23,3 +25,6 @@ class window.App extends Backbone.Model
       @set 'message', 'You Win for now!'
     else
       @set 'message', 'Keep the money, you filthy animal'
+    # console.log @get 'message'
+    return
+
