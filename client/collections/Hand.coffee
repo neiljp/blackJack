@@ -5,7 +5,18 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
+    # window.alert 'Player has hit'
     @add(@deck.pop()).last()
+
+  stand: ->
+    if @.isDealer
+      @.models[0].flip()
+      while @.scores()[0] < 17
+        @.hit()
+        #console.log @.scores()
+      @.trigger 'gameOver'
+    else
+      console.log 'Player has stood'
 
   scores: ->
     # The scores are an array of potential scores.
