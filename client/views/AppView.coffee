@@ -26,6 +26,6 @@ class window.AppView extends Backbone.View
     @$el.children().detach()
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
-    @$('.current-bet-container').html new BetView().el
+    @$('.current-bet-container').html new BetView(model: @model).el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
-    @$('.result-message-container').html @.model.get('message')
+    @$('.result-message-container').html @model.get('message')
