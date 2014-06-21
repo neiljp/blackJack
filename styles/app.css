@@ -31,3 +31,14 @@ body {
 .hand {
   overflow: auto;
 }
+
+.bet {
+  /*margin-bottom: 300px;*/
+  margin-left: 200px;
+  width: 100px;
+  height: 100px;
+}
+
+.chip {
+  width:100%;
+}
